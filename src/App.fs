@@ -13,7 +13,7 @@ type Model =
 type Msg =
     | ChangeValue of string
 
-let init _ = { Value = "0" }, Cmd.none
+let init _ = { Value = "50" }, Cmd.none
 
 let private update msg model =
     match msg with
@@ -29,27 +29,29 @@ let progressBarClassName model =
   ["bar"; "navy"; "lightGray-face"; barValue] |> String.concat " "
 
 let progressBar model =
-  div [ ClassName "chart grid"]
-    [
-      div [ ClassName "exercise second"] [
-        div [ ClassName (progressBarClassName model) ] [
-          div [ ClassName "face top" ] [
-            div [ ClassName "growing-bar" ] []
-          ]
-          div [ ClassName "face side-0" ] [
-            div [ ClassName "growing-bar" ] []
-          ]
-          div [ ClassName "face floor" ] [
-            div [ ClassName "growing-bar" ] []
-          ]
-          div [ ClassName "face side-a" ] []
-          div [ ClassName "face side-b" ] []
-          div [ ClassName "face side-1" ] [
-            div [ ClassName "growing-bar" ] []
+  //  div [ ClassName "progress-bar-container " ] [
+    // div [ ClassName "chart grid"]
+      // [
+        div [ ClassName "exercise"] [
+          div [ ClassName (progressBarClassName model) ] [
+            div [ ClassName "face top" ] [
+              div [ ClassName "growing-bar" ] []
+            ]
+            div [ ClassName "face side-0" ] [
+              div [ ClassName "growing-bar" ] []
+            ]
+            div [ ClassName "face floor" ] [
+              div [ ClassName "growing-bar" ] []
+            ]
+            div [ ClassName "face side-a" ] []
+            div [ ClassName "face side-b" ] []
+            div [ ClassName "face side-1" ] [
+              div [ ClassName "growing-bar" ] []
+            ]
           ]
         ]
-      ]
-    ]
+      // ]
+  //  ]
 // rangeSlider.value;
 //   var bulletPosition = (rangeSlider.value /rangeSlider.max);
 //   rangeBullet.style.left = (bulletPosition * 578) + "px";
@@ -102,14 +104,43 @@ let private view model dispatch =
     Hero.hero [ Hero.IsFullHeight ]
         [ Hero.body [ ]
             [ Container.container [ ]
-                [ Columns.columns [ Columns.CustomClass "has-text-centered" ]
-                    [ Column.column [ Column.Width(Screen.All, Column.IsOneThird)
-                                      Column.Offset(Screen.All, Column.IsOneThird) ]
+                [
+                  Content.content [ ]
+                      [
+                        div [ ClassName "chart grid"]
+                          [
+                            progressBar model
+                            // progressBar model
+                          ]
+                  ]
+
+                  // Columns.columns [ Columns.CustomClass "has-text-centered"; Columns.IsCentered; ]
+                  //   [ Column.column [ Column.Width(Screen.All, Column.Is9)
+                  //                     // Column.Offset(Screen.All, Column.Is6)
+                  //                  ]
+                  //       [ Content.content [ ]
+                  //           [
+                  //             div [ ClassName "chart grid"]
+                  //               [
+                  //                 progressBar model
+                  //                 progressBar model
+                  //               ]
+                  //           ]
+                  //       ]
+                  //     ]
+                  Columns.columns [ Columns.CustomClass "has-text-centered"; Columns.IsCentered ]
+                    [ Column.column [ Column.Width(Screen.All, Column.Is6)
+                                      // Column.Offset(Screen.All, Column.Is6)
+                                    ]
                         [ Content.content [ ]
                             [
-                              progressBar model
                               slider model dispatch
-                            ] ] ] ] ] ]
+                            ]
+                        ]
+                      ]
+                   ]
+                ]
+             ]
     // span [ Style [ Height "500px"]][]
     // slider model dispatch
     // test model dispatch
